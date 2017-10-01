@@ -35,6 +35,7 @@ const (
 	ColorPink // Light purple/fuchsia
 	ColorGrey
 	ColorLightGrey // Silver
+	ColorDefault = 99
 )
 
 type Buffer struct {
