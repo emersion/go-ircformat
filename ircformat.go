@@ -40,6 +40,7 @@ const (
 
 type Buffer struct {
 	Buffer bytes.Buffer
+	lastEscape rune
 }
 
 func (b *Buffer) Append(s string) *Buffer {
@@ -48,6 +49,7 @@ func (b *Buffer) Append(s string) *Buffer {
 }
 
 func (b *Buffer) appendEscape(esc rune) *Buffer {
+	b.lastEscape = esc
 	b.Buffer.WriteRune(esc)
 	return b
 }
@@ -75,5 +77,8 @@ func (b *Buffer) Invert() *Buffer {
 }
 
 func (b *Buffer) String() string {
+	if b.lastEscape != escapeReset {
+		b.appendEscape(escapeReset)
+	}
 	return b.Buffer.String()
 }
